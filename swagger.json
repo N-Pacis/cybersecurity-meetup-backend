@@ -1,0 +1,1427 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "BICT Cyber security meetup backend \n\nMade with ❤️ by BICT Team",
+    "version": "1.0.0",
+    "title": "BICT Cyber security meetup",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "",
+      "email": ""
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "USER OPERATIONS",
+      "description": "Operations on user management and profile"
+    },
+    {
+      "name": "CONTACT OPERATIONS",
+      "description": "Operations on contact us"
+    },
+    {
+      "name": "EVENT OPERATIONS",
+      "description": "Operations on events"
+    },
+    {
+      "name": "SPEAKER OPERATIONS",
+      "description": "Operations on speakers"
+    },
+    {
+      "name": "APPLICATION OPERATIONS",
+      "description": "Operations on applications"
+    },
+    {
+      "name": "PARTNER OPERATIONS",
+      "description": "Operations on partners"
+    },
+    {
+      "name": "ROLE OPERATIONS",
+      "description": "Operations on roles"
+    }
+  ],
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "bearerFormat": "JWT",
+      "scheme": "bearer"
+    }
+  },
+  "paths": {
+    "/user/profile": {
+      "get": {
+        "tags": ["USER OPERATIONS"],
+        "summary": "Get user profile information",
+        "description": "Get user profile information",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["USER OPERATIONS"],
+        "summary": "login to your account",
+        "description": "login to your account",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "Email",
+            "description": "Email of the user",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "Password",
+            "description": "Password of the user",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/forgotPassword/sendResetCode": {
+      "post": {
+        "tags": ["USER OPERATIONS"],
+        "summary": "Get your password reset code",
+        "description": "Get your password reset code",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "Email",
+            "description": "Email of the user",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/forgotPassword/checkCode/{userId}/{code}": {
+      "get": {
+        "tags": ["USER OPERATIONS"],
+        "summary": "Check password reset code",
+        "description": "Check password reset code",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "Id of the user",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "path",
+            "name": "code",
+            "description": "Code sent to the user",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/resetPassword/{userId}": {
+      "patch": {
+        "tags": ["USER OPERATIONS"],
+        "summary": "Reset your password",
+        "description": "Reset your password",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "Id of the user",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "newPassword",
+            "description": "New password of the user",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/user/profile/update": {
+      "put": {
+        "tags": ["USER OPERATIONS"],
+        "summary": "Update profile information",
+        "description": "Update profile information",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "Firstname",
+            "description": "Firstname of the user",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "Lastname",
+            "description": "Lastname of the user",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "Address",
+            "description": "Address of the user",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "Phone",
+            "description": "Phone number of the user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/user/profile/changePassword": {
+      "patch": {
+        "tags": ["USER OPERATIONS"],
+        "summary": "Change your password",
+        "description": "Change your password",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "oldPassword",
+            "description": "Old password of the user",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "newPassword",
+            "description": "New password of the user",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/user/profile/delete": {
+      "delete": {
+        "tags": ["USER OPERATIONS"],
+        "summary": "Delete your profile",
+        "description": "Delete your profile",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/contact-us": {
+      "post": {
+        "tags": ["CONTACT OPERATIONS"],
+        "summary": "Send contact us message",
+        "description": "Send contact us message",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "Names",
+            "description": "Names of the user",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "Email",
+            "description": "Email of the user",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "Message",
+            "description": "Message to send",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "tags": ["EVENT OPERATIONS"],
+        "summary": "Get all events",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "description": "Status of the event",
+            "enum": ["active", "inactive"],
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/events/active": {
+      "get": {
+        "tags": ["EVENT OPERATIONS"],
+        "summary": "Get active event",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/events/create": {
+      "post": {
+        "tags": ["EVENT OPERATIONS"],
+        "summary": "create an event",
+        "produces": ["application/json"],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "name of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "image",
+            "description": "image of the event",
+            "type": "file",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "description": "description of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "location",
+            "description": "location of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "date",
+            "description": "date of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "agenda",
+            "description": "agenda of the event",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "required": "true"
+                },
+                "to": {
+                  "type": "string",
+                  "required": "true"
+                },
+                "title": {
+                  "type": "string",
+                  "required": "true"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/events/update/{eventId}": {
+      "put": {
+        "tags": ["EVENT OPERATIONS"],
+        "summary": "update an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "name of the event",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "description": "description of the event",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "location",
+            "description": "location of the event",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "date",
+            "description": "date of the event",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "agenda",
+            "description": "agenda of the event",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "required": "true"
+                },
+                "to": {
+                  "type": "string",
+                  "required": "true"
+                },
+                "title": {
+                  "type": "string",
+                  "required": "true"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/events/activate/{eventId}": {
+      "patch": {
+        "tags": ["EVENT OPERATIONS"],
+        "summary": "activate an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/events/deactivate/{eventId}": {
+      "patch": {
+        "tags": ["EVENT OPERATIONS"],
+        "summary": "deactivate an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/events/delete/{eventId}": {
+      "delete": {
+        "tags": ["EVENT OPERATIONS"],
+        "summary": "delete an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/speakers/{eventId}": {
+      "get": {
+        "tags": ["SPEAKER OPERATIONS"],
+        "summary": "Get all speakers of an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/speakers/{eventId}/create": {
+      "post": {
+        "tags": ["SPEAKER OPERATIONS"],
+        "summary": "register a speaker for an event",
+        "produces": ["application/json"],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "id of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "name of the speaker",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "image",
+            "description": "image of the speaker",
+            "type": "file",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "role",
+            "description": "role of the speaker",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "socialMedia",
+            "description": "social media of the speaker",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "twitter": {
+                  "type": "string",
+                  "required": "true"
+                },
+                "linkedIn": {
+                  "type": "string",
+                  "required": "true"
+                }
+              }
+            },
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/speakers/{speakerId}/update": {
+      "put": {
+        "tags": ["SPEAKER OPERATIONS"],
+        "summary": "update a speaker for an event",
+        "produces": ["application/json"],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "speakerId",
+            "description": "id of the speaker",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "name of the speaker",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "role",
+            "description": "role of the speaker",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "socialMedia",
+            "description": "social media of the speaker",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "twitter": {
+                  "type": "string",
+                  "required": "true"
+                },
+                "linkedIn": {
+                  "type": "string",
+                  "required": "true"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/speakers/{speakerId}/delete": {
+      "delete": {
+        "tags": ["SPEAKER OPERATIONS"],
+        "summary": "delete a speaker for an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "speakerId",
+            "description": "id of the speaker",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/applicants/all/{eventId}": {
+      "get": {
+        "tags": ["APPLICATION OPERATIONS"],
+        "summary": "Get all applications of an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "description": "Status of the application",
+            "enum": ["pending", "archived", "passed", "accepted"],
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "query",
+            "name": "applicantId",
+            "description": "Id of the applicant",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/applicants/generate-excel/{eventId}": {
+      "get": {
+        "tags": ["APPLICATION OPERATIONS"],
+        "summary": "Generate applicants in excel file",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/applicants/create/{eventId}": {
+      "post": {
+        "tags": ["APPLICATION OPERATIONS"],
+        "summary": "submit an application",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "firstname",
+            "description": "firstname of the applicant",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "lastname",
+            "description": "Lastname of the user",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "phone",
+            "description": "Phone number of the user",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "email",
+            "description": "Email of the user",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "organization",
+            "description": "organization of the applicant",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "position",
+            "description": "position of the applicant",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "industry",
+            "description": "industry of the applicant",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/applicants/pass/{applicantId}": {
+      "patch": {
+        "tags": ["APPLICATION OPERATIONS"],
+        "summary": "pass an application to an admin",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "applicantId",
+            "description": "Id of the applicant",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/applicants/archive/{applicantId}": {
+      "patch": {
+        "tags": ["APPLICATION OPERATIONS"],
+        "summary": "archive an application",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "applicantId",
+            "description": "Id of the applicant",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/applicants/confirm/{applicantId}": {
+      "patch": {
+        "tags": ["APPLICATION OPERATIONS"],
+        "summary": "confirm an application",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "applicantId",
+            "description": "Id of the applicant",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/partners/{eventId}": {
+      "get": {
+        "tags": ["PARTNER OPERATIONS"],
+        "summary": "Get all partners of an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/partners/byRole/{roleId}": {
+      "get": {
+        "tags": ["PARTNER OPERATIONS"],
+        "summary": "Get all partners of an event by role",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "roleId",
+            "description": "Id of the role",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/partners/create/{eventId}/{roleId}": {
+      "post": {
+        "tags": ["PARTNER OPERATIONS"],
+        "summary": "register a partner for an event",
+        "produces": ["application/json"],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "id of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "path",
+            "name": "roleId",
+            "description": "id of the role",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "name of the partner",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "image",
+            "description": "logo of the partner",
+            "type": "file",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/partners/delete/{partnerId}": {
+      "delete": {
+        "tags": ["PARTNER OPERATIONS"],
+        "summary": "delete a partner",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "partnerId",
+            "description": "id of the partner",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/roles/{eventId}": {
+      "get": {
+        "tags": ["ROLE OPERATIONS"],
+        "summary": "Get all roles of an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/roles/with-partners/{eventId}": {
+      "get": {
+        "tags": ["ROLE OPERATIONS"],
+        "summary": "Get all roles of an event with partners",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "Id of the event",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/roles/create/{eventId}": {
+      "post": {
+        "tags": ["ROLE OPERATIONS"],
+        "summary": "register a role for an event",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "description": "id of the event",
+            "type": "string",
+            "required": "true"
+          },
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "name of the role",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/roles/delete/{roleId}": {
+      "delete": {
+        "tags": ["ROLE OPERATIONS"],
+        "summary": "delete a role",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "roleId",
+            "description": "id of the role",
+            "type": "string",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid data"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
